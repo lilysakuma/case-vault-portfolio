@@ -1,3 +1,4 @@
+import os
 import sqlite3
 from pathlib import Path
 from flask import Flask, render_template, request, redirect, url_for, flash
@@ -6,8 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent
 DB_PATH = BASE_DIR / "project.db"
 
 app = Flask(__name__)
-app.secret_key = "dev-secret-key"
-
+app.secret_key = os.environ.get("FLASK_SECRET_KEY") or os.urandom(32)
 
 def get_db_connection():
     conn = sqlite3.connect(DB_PATH)
@@ -310,4 +310,4 @@ def add_task(incident_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
