@@ -89,5 +89,18 @@ class CaseVaultTests(unittest.TestCase):
         self.assertEqual(incident[0], "Updated Security Incident")
         self.assertEqual(incident[1], "investigating")
         self.assertEqual(incident[2], 4)
+        
+    def test_delete_incident(self):
+        response = self.client.post("/incident/1/delete")
+
+        self.assertEqual(response.status_code, 302)
+
+        conn = sqlite3.connect(self.db_path)
+        incident = conn.execute(
+            "SELECT * FROM incidents WHERE incident_id = 1"
+        ).fetchone()
+        conn.close()
+
+        self.assertIsNone(incident)
 if __name__ == "__main__":
     unittest.main()
