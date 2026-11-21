@@ -54,7 +54,26 @@ def initialize_database():
         flash("Database already exists. Existing data was preserved.")
         return redirect(url_for("home"))
 
+    init_db()@app.route("/init")
+def initialize_database():
+    conn = get_db_connection()
+
+    table = conn.execute("""
+        SELECT name FROM sqlite_master
+        WHERE type = 'table' AND name = 'incidents'
+    """).fetchone()
+
+    conn.close()
+
+    if table is not None:
+        flash("Database already initialized. Existing data was preserved.")
+        return redirect(url_for("home"))
+
     init_db()
+    seed_db()
+
+    flash("Database created and seeded successfully.")
+    return redirect(url_for("home"))
     seed_db()
     flash("Database created and seeded successfully.")
     return redirect(url_for("home"))
