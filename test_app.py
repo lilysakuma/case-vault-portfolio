@@ -46,7 +46,28 @@ class CaseVaultTests(unittest.TestCase):
         conn.close()
 
         self.assertEqual(count, 2)
+    def test_create_incident(self):
+        response = self.client.post("/incident/create", data={
+            "title": "Test Security Incident",
+            "description": "Automated test incident",
+            "incident_type": "Phishing",
+            "status": "new",
+            "severity": "3",
+            "reporter_id": "1",
+            "assignee_id": ""
+            
+        })
 
+        self.assertEqual(response.status_code, 302)
+
+        conn = sqlite3.connect(self.db_path)
+        incident = conn.execute(
+            "SELECT * FROM incidents WHERE title = ?",
+            ("Test Security Incident",)
+        ).fetchone()
+        conn.close()
+
+        self.assertIsNotNone(incident)
 
 if __name__ == "__main__":
     unittest.main()
