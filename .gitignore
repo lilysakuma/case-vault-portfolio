@@ -1,4 +1,20 @@
-project.db
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# SQLite
+project.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Environment variables
 .env
+.env.*
+!.env.example
+
+# macOS
+.DS_Store
