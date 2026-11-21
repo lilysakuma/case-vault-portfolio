@@ -46,6 +46,15 @@ python3 app.py
 
 Open `http://127.0.0.1:5000/init` to initialize the local database with sample data, then use the application at `http://127.0.0.1:5000/`.
 
+## Running Tests
+
+Case Vault includes automated tests using Python's built-in
+`unittest` framework.
+
+To run the tests:
+
+```bash
+python3 -m unittest -v test_app.py
 **Important:** The initialization route resets the local database and deletes existing records. This project is intended for local educational use, not production deployment.
 
 ## Project Structure
