@@ -50,12 +50,6 @@ def home():
 
 @app.route("/init")
 def initialize_database():
-    if DB_PATH.exists():
-        flash("Database already exists. Existing data was preserved.")
-        return redirect(url_for("home"))
-
-    init_db()@app.route("/init")
-def initialize_database():
     conn = get_db_connection()
 
     table = conn.execute("""
@@ -74,10 +68,6 @@ def initialize_database():
 
     flash("Database created and seeded successfully.")
     return redirect(url_for("home"))
-    seed_db()
-    flash("Database created and seeded successfully.")
-    return redirect(url_for("home"))
-
 
 @app.route("/incident/create", methods=["GET", "POST"])
 def create_incident():
