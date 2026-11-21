@@ -14,7 +14,14 @@
         <div class="nav-links">
             <a href="{{ url_for('home') }}">Home</a>
             <a href="{{ url_for('create_incident') }}">Create Incident</a>
-            <a href="{{ url_for('initialize_database') }}">Reset DB</a>
+            <form action="{{ url_for('reset_database') }}"
+                method="POST"
+                onsubmit="return confirm('Are you sure? This will delete all incidents and restore the original sample data.');"
+                style="display: inline;">
+      
+            <button type="submit" class="reset-btn">Reset DB</button>
+      
+        </form>       
         </div>
     </nav>
 

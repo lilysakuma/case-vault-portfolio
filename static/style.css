@@ -97,3 +97,16 @@ button:hover,
 .button-link:hover {
     background: #2c527a;
 }
+.reset-btn {
+    background: none;
+    border: none;
+    color: white;
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+}
+
+.reset-btn:hover {
+    text-decoration: underline;
+}

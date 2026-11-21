@@ -65,7 +65,16 @@ def initialize_database():
 
     init_db()
     seed_db()
+@app.route("/reset", methods=["POST"])
+def reset_database():
+    if DB_PATH.exists():
+        DB_PATH.unlink()
 
+    init_db()
+    seed_db()
+
+    flash("Database reset to sample data.")
+    return redirect(url_for("home"))
     flash("Database created and seeded successfully.")
     return redirect(url_for("home"))
 
