@@ -68,6 +68,26 @@ class CaseVaultTests(unittest.TestCase):
         conn.close()
 
         self.assertIsNotNone(incident)
+    def test_edit_incident(self):
+        response = self.client.post("/incident/1/edit", data={
+            "title": "Updated Security Incident",
+            "description": "Updated description",
+            "incident_type": "Phishing",
+            "status": "investigating",
+            "severity": "4",
+            "assignee_id": "2"
+        })
 
+        self.assertEqual(response.status_code, 302)
+
+        conn = sqlite3.connect(self.db_path)
+        incident = conn.execute(
+            "SELECT title, status, severity FROM incidents WHERE incident_id = 1"
+        ).fetchone()
+        conn.close()
+
+        self.assertEqual(incident[0], "Updated Security Incident")
+        self.assertEqual(incident[1], "investigating")
+        self.assertEqual(incident[2], 4)
 if __name__ == "__main__":
     unittest.main()
