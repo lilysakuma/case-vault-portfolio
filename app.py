@@ -51,7 +51,9 @@ def home():
 @app.route("/init")
 def initialize_database():
     if DB_PATH.exists():
-        DB_PATH.unlink()
+        flash("Database already exists. Existing data was preserved.")
+        return redirect(url_for("home"))
+
     init_db()
     seed_db()
     flash("Database created and seeded successfully.")
